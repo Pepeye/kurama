@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -29,7 +30,8 @@ func main() {
 	app.Get("/", handlerFn)
 
 	// start server
-	http.ListenAndServe(":3001", app)
+	defer http.ListenAndServe(":3001", app)
+	fmt.Println("[Kurama]: Server running...")
 }
 
 func handlerFn(res http.ResponseWriter, req *http.Request) {
@@ -42,5 +44,7 @@ func handlerFn(res http.ResponseWriter, req *http.Request) {
 
 	res.Header().Set("Content-Type", "application/json")
 	res.WriteHeader(http.StatusCreated)
+	// %+v prints out all the fields in the struct
+	// fmt.Printf("%+v", req)
 	json.NewEncoder(res).Encode(msg)
 }
