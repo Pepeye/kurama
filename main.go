@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -22,6 +23,7 @@ func main() {
 
 	// middleware
 	app.Use(middleware.RequestID)
+	app.Use(middleware.RealIP)
 	app.Use(middleware.Logger)
 	app.Use(middleware.Recoverer)
 	app.Use(middleware.URLFormat)
@@ -30,8 +32,12 @@ func main() {
 	app.Get("/", handlerFn)
 
 	// start server
-	defer http.ListenAndServe(":3001", app)
+	// defer http.ListenAndServe(":3001", app)
 	fmt.Println("[Kurama]: Server running...")
+	err := http.ListenAndServe(":3001", app)
+	if err != nil {
+		log.Fatal("Serving: ", err)
+	}
 }
 
 func handlerFn(res http.ResponseWriter, req *http.Request) {
