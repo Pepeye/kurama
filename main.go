@@ -31,17 +31,6 @@ type Service struct {
 	client http.Client
 }
 
-// APIResponse price feed
-// type APIResponse struct {
-// 	Data `json:"data"`
-// }
-
-// Data price feed from coinbase
-// type Data struct {
-// 	Amount   string `json:"amount"`
-// 	Currency string `json:"currency"`
-// }
-
 func main() {
 	app := chi.NewRouter()
 
