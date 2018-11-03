@@ -1,6 +1,6 @@
 # KURAMA
 ---
-A GraphQL API written in Go!
+A Simple API written in Go!
 
 ## code
 
